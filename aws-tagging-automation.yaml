@@ -181,8 +181,6 @@ Resources:
                       
                   elif event['detail']['eventName'] == 'CreateTransitGateway':
                       print("tagging for new Transit Gateway...")
-              #        _twgId = event['detail']['responseElements']['CreateVpcEndpointResponse']['vpcEndpoint']['vpcEndpointId']
-              #        arnList.append(resourceArnTemplate.replace('@region@', _region).replace('@account@', _account).replace('resourceName', 'transit-gateway').replace('@resourceId@', _twgId)) 
                       arnList.append(event['detail']['responseElements']['CreateTransitGatewayResponse']['transitGateway']['transitGatewayArn'])
                   return arnList
                   
@@ -199,11 +197,6 @@ Resources:
                   arnList = []
                   if event['detail']['eventName'] == 'CreateDBInstance':
                       print("tagging for new RDS...")
-                      #db_instance_id = event['detail']['requestParameters']['dBInstanceIdentifier']
-                      #waiter = boto3.client('rds').get_waiter('db_instance_available')
-                      #waiter.wait(
-                      #    DBInstanceIdentifier = db_instance_id
-                      #)
                       arnList.append(event['detail']['responseElements']['dBInstanceArn'])
                       return arnList
 
@@ -229,15 +222,8 @@ Resources:
                       
               def aws_eks(event):
                   arnList = []
-              #    _account = event['account']
-              #    _region = event['region']
-
-              #    eksArnTemplate = 'arn:aws:eks:@region@:@account@:resourceName/@resourceId@'
-
                   if event['detail']['eventName'] == 'CreateCluster':
-                      print("tagging for new EKS Cluster...")
-              #        _clusterName = event['detail']['responseElements']['arn']
-              #        arnList.append(eksArnTemplate.replace('@region@', _region).replace('@account@', _account).replace('resourceName', 'cluster').replace('@resourceId@', _clusterName)) 
+                      print("tagging for new EKS Cluster...") 
                       arnList.append(event['detail']['responseElements']['cluster']['arn'])
                       return arnList
 
